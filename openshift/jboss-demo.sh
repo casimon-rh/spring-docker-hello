@@ -7,8 +7,8 @@ oc start-build jboss-demo --from-dir jboss-demo --follow
 oc new-app -i jboss-demo
 
 oc set probe deployment/jboss-demo --remove --readiness --liveness
-oc set probe deployment/jboss-demo --liveness --get-url=http://:8080/actuator/health --initial-delay-seconds=140
-oc set probe deployment/jboss-demo --readiness --get-url=http://:8080/actuator/health --initial-delay-seconds=140
+oc set probe deployment/jboss-demo --liveness --get-url=http://:8080/demo/actuator/health --initial-delay-seconds=140
+oc set probe deployment/jboss-demo --readiness --get-url=http://:8080/demo/actuator/health --initial-delay-seconds=140
 
 
 oc create route edge --service=jboss-demo
