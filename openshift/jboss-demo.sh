@@ -6,9 +6,12 @@ cp ../target/demo.war jboss-demo/demo.war
 oc start-build jboss-demo --from-dir jboss-demo --follow
 oc new-app -i jboss-demo
 
-# oc set probe dc/jboss-demo --remove --readiness --liveness
-# oc set probe dc/jboss-demo --liveness --get-url=http://:8080/ --initial-delay-seconds=140
-# oc set probe dc/jboss-demo --readiness --get-url=http://:8080/ --initial-delay-seconds=140
+oc set probe deployment/jboss-demo --remove --readiness --liveness
+oc set probe deployment/jboss-demo --liveness --get-url=http://:8080/actuator/health --initial-delay-seconds=140
+oc set probe deployment/jboss-demo --readiness --get-url=http://:8080/actuator/health --initial-delay-seconds=140
 
 
 oc create route edge --service=jboss-demo
+
+oc create secret generic appsecret --from-literal=MY_APPLICATION_NAME=jboss
+oc set env deployment/jboss-demo --from=secret/appsecret

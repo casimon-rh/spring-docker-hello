@@ -6,8 +6,11 @@ cp ../target/demo.jar java-demo/demo.jar
 oc start-build java-demo --from-dir java-demo --follow
 oc new-app -i java-demo
 
-# oc set probe dc/java-demo --remove --readiness --liveness
-# oc set probe dc/java-demo --liveness --get-url=http://:8080/greeting --initial-delay-seconds=40
-# oc set probe dc/java-demo --readiness --get-url=http://:8080/greeting --initial-delay-seconds=40
+oc set probe deployment/java-demo --remove --readiness --liveness
+oc set probe deployment/java-demo --liveness --get-url=http://:8080/actuator/health --initial-delay-seconds=40
+oc set probe deployment/java-demo --readiness --get-url=http://:8080/actuator/health --initial-delay-seconds=40
 
 oc create route edge --service=java-demo
+
+oc create cm appconfig --from-literal=MY_APPLICATION_NAME=java
+oc set env deployment/java-demo --from=configmap/appconfig
