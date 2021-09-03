@@ -17,4 +17,8 @@ public class GreetingController {
     model.addAttribute("app", app);
     return "greeting";
   }
+  @GetMapping("/color")
+  public String color(Model model){
+    return "color";
+  }
 }
