@@ -1,0 +1,19 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: java-colors
+  namespace: csi-deploy-demo
+spec:
+  to:
+    kind: Service
+    name: java-green
+    weight: 50
+  alternateBackends:
+  - kind: Service
+    name: java-blue
+    weight: 50
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+  wildcardPolicy: None
