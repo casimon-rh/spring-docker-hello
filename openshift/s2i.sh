@@ -9,5 +9,5 @@ oc set probe deployment/jboss-s2i --readiness --get-url=http://:8080/demo/actuat
 oc create route edge --service=jboss-s2i
 
 
-oc create cm s2i-appconfig --from-literal=MY_APPLICATION_NAME=java
+oc create cm s2i-appconfig --from-literal=MY_APPLICATION_NAME=s2i-jboss
 oc set env deployment/jboss-s2i --from=configmap/s2i-appconfig
