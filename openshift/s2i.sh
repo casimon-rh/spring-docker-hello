@@ -1,5 +1,6 @@
 #!/bin/bash
 oc import-image jboss-eap-7/eap73-openjdk11-openshift-rhel8:latest --from=registry.redhat.io/jboss-eap-7/eap73-openjdk11-openshift-rhel8 --confirm
+
 oc new-app eap73-openjdk11-openshift-rhel8~https://github.com/casimon-rh/spring-docker-hello --name jboss-s2i
 
 oc set probe deployment/jboss-s2i --remove --readiness --liveness
